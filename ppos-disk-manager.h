@@ -7,6 +7,8 @@
 #ifndef __DISK_MGR__
 #define __DISK_MGR__
 
+#include "ppos.h"
+
 //#define DEBUG_DISK 1
 
 // estruturas de dados e rotinas de inicializacao e acesso
@@ -22,6 +24,7 @@ typedef struct diskrequest_t {
     unsigned char operation; // DISK_REQUEST_READ ou DISK_REQUEST_WRITE
     int block;
     void* buffer;
+    volatile int status; // Adicione este campo: 0=pendente, 1=concluído, -1=erro
 } diskrequest_t;
 
 // estrutura que representa um disco no sistema operacional
