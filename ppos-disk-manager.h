@@ -7,7 +7,12 @@
 #ifndef __DISK_MGR__
 #define __DISK_MGR__
 
-#include "ppos.h"
+#include "ppos.h" // Garante que task_t e semaphore_t são conhecidos
+#include <signal.h>
+
+// --- DECLARAÇÕES DE VARIÁVEIS GLOBAIS ---
+extern volatile sig_atomic_t g_disk_interrupt_flag;
+extern semaphore_t sem_disk;
 
 //#define DEBUG_DISK 1
 
@@ -43,8 +48,6 @@ typedef struct {
     diskrequest_t* requestQueue;
 } disk_t;
 
-
-
 // inicializacao do gerente de disco
 // retorna -1 em erro ou 0 em sucesso
 // numBlocks: tamanho do disco, em blocos
@@ -58,6 +61,13 @@ int disk_block_read (int block, void *buffer) ;
 int disk_block_write (int block, void *buffer) ;
 
 // escalonador de requisições do disco
-diskrequest_t* disk_scheduler();
+//diskrequest_t* disk_scheduler();
+
+/*MINHAS*/
+void disk_driver(void *arg);
+void disk_signal_handler(int signum);
+diskrequest_t* disk_scheduler_fcfs();
+diskrequest_t* disk_scheduler_sstf();
+diskrequest_t* disk_scheduler_cscan();
 
 #endif

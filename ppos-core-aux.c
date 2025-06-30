@@ -1,6 +1,5 @@
 #include "ppos.h"
 #include "ppos-core-globals.h"
-#include "ppos-disk-manager.h"
 // ****************************************************************************
 // Adicione TUDO O QUE FOR NECESSARIO para realizar o seu trabalho
 // Coloque as suas modificações aqui, 
@@ -24,7 +23,7 @@ void tratador (int signum)
   if(taskExec->task_sys==0){
     contador--;
     if(contador==0){
-        taskExec->time_proce+=systime()- taskExec->time_aux;
+        //taskExec->time_proce+=systime()- taskExec->time_aux;
         task_yield();
     }
   }
@@ -509,13 +508,15 @@ int task_getprio (task_t *task) {
     }
     return task->prioridade;
 }
-unsigned int systime (){
-    unsigned int tempo;
-    gettimeofday( &stop_time, NULL );
-    tempo = (stop_time.tv_sec - start_time.tv_sec)*MICRO_PER_SECOND+(stop_time.tv_usec - start_time.tv_usec)/MICRO_PER_SECOND;
-    return tempo;
+
+unsigned int systime() {
+    struct timeval now;
+    gettimeofday(&now, NULL);
+
+    // Usa long long para evitar overflow com números grandes
+    long long start_ms = (long long)start_time.tv_sec * 1000 + start_time.tv_usec / 1000;
+    long long now_ms = (long long)now.tv_sec * 1000 + now.tv_usec / 1000;
+
+    return (unsigned int)(now_ms - start_ms);
 }
 
-diskrequest_t* disk_scheduler(){
-    return NULL;
-}

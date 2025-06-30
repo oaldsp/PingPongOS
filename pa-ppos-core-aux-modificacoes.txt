@@ -1,3 +1,13 @@
+void tratador (int signum)
+{
+  if(taskExec->task_sys==0){
+    contador--;
+    if(contador==0){
+        //taskExec->time_proce+=systime()- taskExec->time_aux;
+        task_yield();
+    }
+  }
+}
 
 void after_task_create (task_t *task) {
     // put your customization here
@@ -57,3 +67,13 @@ task_t* scheduler() {
     return task_prio;
 }
 
+unsigned int systime() {
+    struct timeval now;
+    gettimeofday(&now, NULL);
+
+    // Usa long long para evitar overflow com números grandes
+    long long start_ms = (long long)start_time.tv_sec * 1000 + start_time.tv_usec / 1000;
+    long long now_ms = (long long)now.tv_sec * 1000 + now.tv_usec / 1000;
+
+    return (unsigned int)(now_ms - start_ms);
+}
