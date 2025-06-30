@@ -22,14 +22,15 @@ extern semaphore_t sem_disk;
 
 // structura de dados que representa um pedido de leitura/escrita ao disco
 typedef struct diskrequest_t {
-    struct diskrequest_t* next;
-    struct diskrequest_t* prev;
+    struct diskrequest_t* next; // Ponteiro para o próximo na fila
+    struct diskrequest_t* prev; // Ponteiro para o anterior na fila
 
-    task_t* task;
-    unsigned char operation; // DISK_REQUEST_READ ou DISK_REQUEST_WRITE
-    int block;
-    void* buffer;
-    volatile int status; // Adicione este campo: 0=pendente, 1=concluído, -1=erro
+    task_t* task; // Tarefa que solicitou a operação
+    unsigned char operation; // DISK_REQUEST_READ ou DISK_REQUEST_WRITE(Leitura ou escrita)
+    int block;  // Bloco a ser lido/escrito
+    void* buffer;  // Endereço dos dados a escrever no disco, ou onde devem ser 
+    //colocados os dados lidos do disco;
+    volatile int status; // Status: 0=pendente, 1=concluído, -1=erro
 } diskrequest_t;
 
 // estrutura que representa um disco no sistema operacional

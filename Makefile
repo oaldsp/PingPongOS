@@ -23,4 +23,4 @@
 #	$(CC)
 
 all:
-	gcc -Wall ppos-disk-manager.c pingpong-disco1.c ppos-core-aux.c disk-driver.o queue.o ppos-all.o -o p1 -lrt
+	gcc -Wall ppos-disk-manager.c pingpong-disco2.c ppos-core-aux.c disk-driver.o queue.o ppos-all.o -o p2 -lrt
