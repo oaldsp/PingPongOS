@@ -8,11 +8,10 @@
 #define __DISK_MGR__
 
 #include "ppos.h" // Garante que task_t e semaphore_t são conhecidos
-#include <signal.h>
+//#include <signal.h>
 
-// --- DECLARAÇÕES DE VARIÁVEIS GLOBAIS ---
-extern volatile sig_atomic_t g_disk_interrupt_flag;
-extern semaphore_t sem_disk;
+//extern volatile sig_atomic_t g_disk_interrupt_flag;
+//extern semaphore_t sem_disk;
 
 //#define DEBUG_DISK 1
 
@@ -62,7 +61,8 @@ int disk_block_read (int block, void *buffer) ;
 int disk_block_write (int block, void *buffer) ;
 
 // Finaliza o gerente de disco, liberando recursos e terminando a tarefa do driver.
-int disk_mgr_close();
+//int disk_mgr_close();
+void disk_mgr_shutdown_handler();
 
 // escalonador de requisições do disco
 //diskrequest_t* disk_scheduler();

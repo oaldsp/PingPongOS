@@ -4,7 +4,7 @@ void tratador (int signum)
     contador--;
     if(contador==0){
         //taskExec->time_proce+=systime()- taskExec->time_aux;
-        task_yield();
+        task_yield();//libera o processador para a próxima tarefa
     }
   }
 }
@@ -15,17 +15,17 @@ void after_task_create (task_t *task) {
     printf("\ntask_create - AFTER - [%d]", task->id);
 #endif
 
-task->task_sys=0;
+task->task_sys=0;//Tarefa de usuaro
 
 if (!task->task_sys) {
     task->state = PPOS_TASK_STATE_READY;
     queue_append((queue_t**)&readyQueue, (queue_t*)task);
 }
 
-task->prio_base=-21;
-task->time_proce=0;
-task->cont_ativo=0;
-task->time_ini=systime();
+task->prio_base=-21;//Prioridade base
+task->time_proce=0;//Soma de tempo ativo
+task->cont_ativo=0;//Quantas vezes ficou ativo 
+task->time_ini=systime();//Tempo que começou
 }
 
 task_t* scheduler() {

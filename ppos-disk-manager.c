@@ -76,7 +76,7 @@ void disk_driver(void *arg) {
         disk_cmd(cmd, req->block, req->buffer);
 
         while (g_disk_interrupt_flag == 0) {
-            task_yield();//Libera processar até chegar interrupção do Disco que terminou o serviç0
+            task_yield();//Libera processar até chegar interrupção do Disco que terminou o serviço
         }
         g_disk_interrupt_flag = 0;//Reseta flag
         
