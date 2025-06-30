@@ -60,6 +60,9 @@ int disk_block_read (int block, void *buffer) ;
 // escrita de um bloco, do buffer para o disco
 int disk_block_write (int block, void *buffer) ;
 
+// Finaliza o gerente de disco, liberando recursos e terminando a tarefa do driver.
+int disk_mgr_close();
+
 // escalonador de requisições do disco
 //diskrequest_t* disk_scheduler();
 
